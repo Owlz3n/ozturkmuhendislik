@@ -24,7 +24,7 @@ navLinks.querySelectorAll('.nav-link').forEach(link => {
 
 /* ── Scroll Reveal ── */
 const revealEls = document.querySelectorAll(
-  '.service-card, .project-card, .region-card, .stat-card, .feat-item, .ci-item, .about-content, .about-image-wrap, .contact-form-wrap, .contact-info'
+  '.service-card, .highlight-card, .why-card, .stat-card, .feat-item, .ci-item, .about-content, .about-image-wrap, .contact-form-wrap, .contact-info'
 );
 revealEls.forEach(el => el.classList.add('reveal'));
 
@@ -37,39 +37,6 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
 revealEls.forEach(el => revealObserver.observe(el));
-
-/* ── Animated stat counters ── */
-const statNums = document.querySelectorAll('.stat-num[data-target]');
-let countersStarted = false;
-
-const counterObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting && !countersStarted) {
-      countersStarted = true;
-      statNums.forEach(el => animateCounter(el));
-    }
-  });
-}, { threshold: 0.4 });
-
-const statsSection = document.getElementById('stats');
-if (statsSection) counterObserver.observe(statsSection);
-
-function animateCounter(el) {
-  const target   = +el.getAttribute('data-target');
-  const duration = 1800;
-  const step     = 16;
-  const increment = target / (duration / step);
-  let current = 0;
-
-  const timer = setInterval(() => {
-    current += increment;
-    if (current >= target) {
-      current = target;
-      clearInterval(timer);
-    }
-    el.textContent = Math.floor(current);
-  }, step);
-}
 
 /* ── Contact form ── */
 const form        = document.getElementById('contactForm');
