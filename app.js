@@ -48,13 +48,48 @@ form.addEventListener('submit', (e) => {
   submitBtn.textContent = 'Gönderiliyor...';
   submitBtn.disabled = true;
 
-  setTimeout(() => {
+  const formData = new FormData(form);
+  // Add a parameter to identify the request as AJAX
+  formData.append('ajax', '1');
+
+  fetch('mail-gonder.php', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Ağ hatası oluştu');
+    }
+    return response.json();
+  })
+  .then(data => {
     submitBtn.textContent = 'Mesajı Gönder →';
     submitBtn.disabled = false;
-    formSuccess.classList.add('visible');
-    form.reset();
+
+    if (data.status === 'success') {
+      formSuccess.textContent = '✅ ' + data.message;
+      formSuccess.style.background = 'rgba(82, 183, 136, 0.1)';
+      formSuccess.style.color = 'var(--green-dark)';
+      formSuccess.classList.add('visible');
+      form.reset();
+    } else {
+      formSuccess.textContent = '❌ ' + data.message;
+      formSuccess.style.background = 'rgba(230, 57, 70, 0.1)';
+      formSuccess.style.color = '#c92a2a';
+      formSuccess.classList.add('visible');
+    }
     setTimeout(() => formSuccess.classList.remove('visible'), 5000);
-  }, 1200);
+  })
+  .catch(error => {
+    console.error('Hata:', error);
+    submitBtn.textContent = 'Mesajı Gönder →';
+    submitBtn.disabled = false;
+    formSuccess.textContent = '❌ Bir bağlantı veya sunucu hatası oluştu. Lütfen tekrar deneyin.';
+    formSuccess.style.background = 'rgba(230, 57, 70, 0.1)';
+    formSuccess.style.color = '#c92a2a';
+    formSuccess.classList.add('visible');
+    setTimeout(() => formSuccess.classList.remove('visible'), 5000);
+  });
 });
 
 /* ── Smooth active nav highlight ── */
