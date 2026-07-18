@@ -2,7 +2,7 @@
    ÖZTÜRK ORMAN MÜHENDİSLİK – STYLE.CSS
    ======================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap');
+/* Google Fonts loaded via HTML <link> tag */
 
 /* ── CSS VARIABLES ── */
 :root {
@@ -147,6 +147,8 @@ ul { list-style: none; }
   z-index: 1000;
   padding: 16px 0;
   transition: var(--transition);
+  background: rgba(8,28,21,.95);
+  backdrop-filter: blur(16px);
 }
 .navbar.scrolled {
   background: rgba(8,28,21,.95);
@@ -683,6 +685,90 @@ ul { list-style: none; }
 }
 .stat-label { font-size: .78rem; color: rgba(255,255,255,.7); margin-top: 8px; font-weight: 500; }
 
+/* ── RESOURCE / PAGE SECTIONS ── */
+.info-links {
+  padding: 100px 0;
+  background: linear-gradient(180deg, var(--bg-light) 0%, #f8fdf9 100%);
+}
+.info-link-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.info-link-card {
+  display: block;
+  background: #fff;
+  border: 1px solid var(--green-mist);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+.info-link-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--green-pale);
+}
+.info-link-icon { font-size: 2rem; margin-bottom: 16px; }
+.info-link-card h3 {
+  font-size: 1.05rem;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+.info-link-card p {
+  font-size: .9rem;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+.info-link-card span {
+  font-weight: 700;
+  color: var(--green-base);
+}
+
+.page-shell {
+  padding-top: 110px;
+  background: var(--bg-light);
+}
+.page-hero {
+  padding: 60px 0 40px;
+  background: linear-gradient(135deg, rgba(8,28,21,.95), rgba(27,67,50,.88));
+  color: #fff;
+}
+.page-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  margin-bottom: 14px;
+}
+.page-desc {
+  max-width: 760px;
+  color: rgba(255,255,255,.82);
+  font-size: 1rem;
+}
+.page-section { padding: 70px 0 100px; }
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.info-card {
+  background: #fff;
+  border: 1px solid var(--green-mist);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+}
+.info-card h2 {
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+.info-card p {
+  color: var(--text-secondary);
+  font-size: .95rem;
+  line-height: 1.7;
+}
+
 /* ── CONTACT ── */
 .contact { padding: 100px 0; background: var(--bg-light); }
 .contact-grid {
@@ -825,12 +911,66 @@ ul { list-style: none; }
   transform: translateY(0);
 }
 
+/* ── WHATSAPP FLOATING BUTTON ── */
+.whatsapp-float {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 900;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25D366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, .45);
+  transition: var(--transition);
+  cursor: pointer;
+}
+.whatsapp-float:hover {
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0 8px 28px rgba(37, 211, 102, .55);
+}
+
+/* ── SCROLL TO TOP ── */
+.scroll-to-top {
+  position: fixed;
+  bottom: 96px;
+  right: 32px;
+  z-index: 900;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--green-base), var(--green-dark));
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(27, 67, 50, .4);
+  transition: var(--transition);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+}
+.scroll-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.scroll-to-top:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(27, 67, 50, .5);
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 1024px) {
   .highlights-grid { grid-template-columns: repeat(2, 1fr); }
   .services-grid { grid-template-columns: repeat(2, 1fr); }
   .why-us-grid   { grid-template-columns: repeat(2, 1fr); }
   .stats-grid    { grid-template-columns: repeat(2, 1fr); }
+  .info-link-grid, .info-grid { grid-template-columns: 1fr; }
   .footer-grid   { grid-template-columns: 1fr 1fr; }
 }
 
